@@ -7,13 +7,17 @@ const ProductList = () => {
 
   const handleBuy = (product, size) => {
     removeFromStock(product.id, size);
-    console.log(product)
+    console.log(product);
+    addToCart(product,size)
+    console.log(product);
   };
 
   return (
     <div className="p-4">
       <h3 className='text-center text-2xl font-bold text-blue-700 m-2'>Product List</h3>
-      {products.map(product => (
+      {products.length === 0 ? (
+        <p>No products have been added to the list yet.</p>
+      ) : (products.map(product => (
         <div key={product.id} className="p-4 bg-white shadow flex-col gap-x-5 justify-center items-center mb-4">
             <div className='flex justify-between'>
                 <div className='w-2/6'>
@@ -38,13 +42,9 @@ const ProductList = () => {
                         <span className='border-2 border-solid border-gray-400  bg-gray-200 overflow-hidden rounded-lg px-3 text-lg font-bold'>{product.large}</span>
                     </div>
                 </div>      
-            </div> 
-       
-            <div className='justify-center items-center flex'>
-                <button onClick={() => addToCart(product, 'all')} className="w-full m-4 bg-green-500 text-white px-4 py-2 rounded">Add to Cart</button>
-            </div>           
+            </div>          
         </div>
-      ))}
+      )))}
     </div>
   );
 };

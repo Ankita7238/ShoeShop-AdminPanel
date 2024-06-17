@@ -12,16 +12,23 @@ export const ProductProvider = ({ children }) => {
   };
 
   const addToCart = (product, size) => {
-    const existingCartItemIndex = cart.findIndex(item => item.id === product.id && item.size === size);
-
+    const existingCartItemIndex = cart.findIndex(item => item.id === product.id);
+    console.log(cart)
+    console.log()
     if (existingCartItemIndex !== -1) {
       // If item already exists in cart, update the quantity for that size
       const updatedCart = [...cart];
+      updatedCart[existingCartItemIndex][size] += 1;
       updatedCart[existingCartItemIndex].quantity += 1;
       setCart(updatedCart);
     } else {
       // If item doesn't exist in cart, add it with initial quantity 1 for that size
-      setCart([...cart, { ...product, size, quantity: 1 }]);
+      if(size='small')
+        setCart([...cart, { ...product, [size]: 1, medium:0, large:0  ,quantity:1}]);
+      else if(size='medium')
+        setCart([...cart, { ...product, [size]: 1, small:0, large:0 ,quantity:1}]);
+      else
+        setCart([...cart, { ...product, [size]: 1, medium:0, small:0 ,quantity:1}]);
     }
   };
 
